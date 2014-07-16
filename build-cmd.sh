@@ -97,8 +97,8 @@ pushd "$FMOD_SOURCE_DIR"
             cp "api/lowlevel/lib/fmod64.dll" "$stage_release"
         ;;
         "darwin")
-            cp "api/lib/libfmodexL.dylib" "$stage_debug"
-            cp "api/lib/libfmodex.dylib" "$stage_release"
+            cp "api/lowlevel/lib/libfmodL.dylib" "$stage_debug"
+            cp "api/lowlevel/lib/libfmod.dylib" "$stage_release"
             pushd "$stage_debug"
               fix_dylib_id libfmodexL.dylib
             popd

@@ -24,25 +24,25 @@ set -x
 # Form the official fmod archive URL to fetch
 # Note: fmod is provided in 3 flavors (one per platform) of precompiled binaries. We do not have access to source code.
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10404"
+FMOD_VERSION="10500"
 case "$AUTOBUILD_PLATFORM" in
     windows*)
     FMOD_SERV_DIR="Win"
     FMOD_PLATFORM="win-installer"
     FMOD_FILEEXTENSION=".exe"
-    FMOD_MD5="397ecba15ccf98dc6b39c7d8a234d6f8"
+    FMOD_MD5="2b3585147824e14bf605de9e15ebd268"
     ;;
     "darwin")
     FMOD_SERV_DIR="Mac"
     FMOD_PLATFORM="mac-installer"
     FMOD_FILEEXTENSION=".dmg"
-    FMOD_MD5="06c5337685fcbefbe3eae44b831c6fa6"
+    FMOD_MD5="3aad3bee1907a8bac22570d77b73a090"
     ;;
     linux*)
     FMOD_SERV_DIR="Linux"
     FMOD_PLATFORM="linux"
     FMOD_FILEEXTENSION=".tar.gz"
-    FMOD_MD5="485d3b4780973a8e9688153ef05a7764"
+    FMOD_MD5="425a0de77265fb8e7259af0f0200a68e"
     ;;
 esac
 FMOD_SOURCE_DIR="$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"
@@ -55,7 +55,7 @@ fetch_archive "$FMOD_URL" "$FMOD_ARCHIVE" "$FMOD_MD5"
 # TODO: move that logic to the appropriate autobuild script
 case "$FMOD_ARCHIVE" in
     *.exe)
-        7z x "$FMOD_ARCHIVE" -o"$FMOD_SOURCE_DIR"
+        #7z x "$FMOD_ARCHIVE" -o"$FMOD_SOURCE_DIR"
     ;;
     *.tar.gz)
         extract "$FMOD_ARCHIVE"

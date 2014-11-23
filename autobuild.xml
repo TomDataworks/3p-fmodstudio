@@ -152,9 +152,9 @@
         </map>
       </map>
       <key>source_directory</key>
-      <string>fmodstudioapi10500</string>
+      <string>fmodstudioapi10507</string>
       <key>version</key>
-      <string>1.05.03</string>
+      <string>1.05.07</string>
     </map>
     <key>type</key>
     <string>autobuild</string>

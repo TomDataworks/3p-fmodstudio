@@ -24,25 +24,25 @@ set -x
 # Form the official fmod archive URL to fetch
 # Note: fmod is provided in 3 flavors (one per platform) of precompiled binaries. We do not have access to source code.
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10503"
+FMOD_VERSION="10507"
 case "$AUTOBUILD_PLATFORM" in
     windows*)
     FMOD_SERV_DIR="Win"
     FMOD_PLATFORM="win-installer"
     FMOD_FILEEXTENSION=".exe"
-    FMOD_MD5="fa25184fc28d3b075e61e4732329d63d"
+    FMOD_MD5="a558210adaed9ace504b9f35b87c17fe"
     ;;
     "darwin")
     FMOD_SERV_DIR="Mac"
     FMOD_PLATFORM="mac-installer"
     FMOD_FILEEXTENSION=".dmg"
-    FMOD_MD5="7072ca645142cde887e9853d495d938e"
+    FMOD_MD5="bf4159b7ae8746509fec917ce63353a6"
     ;;
     linux*)
     FMOD_SERV_DIR="Linux"
     FMOD_PLATFORM="linux"
     FMOD_FILEEXTENSION=".tar.gz"
-    FMOD_MD5="b00bf6a7b512d67e7e1beea2596cb95e"
+    FMOD_MD5="10247fe7fabc1ae9ca0cb9483c9db7c3"
     ;;
 esac
 FMOD_SOURCE_DIR="$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"
@@ -55,7 +55,25 @@ fetch_archive "$FMOD_URL" "$FMOD_ARCHIVE" "$FMOD_MD5"
 # TODO: move that logic to the appropriate autobuild script
 case "$FMOD_ARCHIVE" in
     *.exe)
-        #7z x "$FMOD_ARCHIVE" -o"$FMOD_SOURCE_DIR"
+        # We can't run the NSIS installer as admin in TC
+        # so we do this part manually and put the whole lot
+        # into the repo instead.
+        #
+        bash_install_dir="$(pwd)/$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"
+        win_install_dir=`cygpath -w "$bash_install_dir"`
+        #
+        # This will invoke the UAC dialog to confirm permission before
+        # proceeding.  You can run the build on a 'modified' system with
+        # permissions granted to the build account or you might be able
+        # to get to the dialog using remote desktop.  Either way, manual
+        # preparation for this is required.
+        #
+        chmod +x "$FMOD_ARCHIVE"
+        cmd.exe /c "$FMOD_ARCHIVE /S /D=$win_install_dir"
+        if [ ! -d "$win_install_dir" ]; then
+            echo "Please run $FMODEX_ARCHIVE as administrator and install to  $win_install_dir"
+            fail
+        fi
     ;;
     *.tar.gz)
         extract "$FMOD_ARCHIVE"
@@ -85,16 +103,16 @@ mkdir -p "$stage_release"
 pushd "$FMOD_SOURCE_DIR"
     case "$AUTOBUILD_PLATFORM" in
         "windows")
-            cp "api/lowlevel/lib/fmodL_vc.lib" "$stage_debug"
-            cp "api/lowlevel/lib/fmod_vc.lib" "$stage_release"
-            cp "api/lowlevel/lib/fmodL.dll" "$stage_debug"
-            cp "api/lowlevel/lib/fmod.dll" "$stage_release"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmodL_vc.lib" "$stage_debug"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmod_vc.lib" "$stage_release"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmodL.dll" "$stage_debug"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmod.dll" "$stage_release"
         ;;
         "windows64")
-            cp "api/lowlevel/lib/fmodL64_vc.lib" "$stage_debug"
-            cp "api/lowlevel/lib/fmod64_vc.lib" "$stage_release"
-            cp "api/lowlevel/lib/fmodL64.dll" "$stage_debug"
-            cp "api/lowlevel/lib/fmod64.dll" "$stage_release"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmodL64_vc.lib" "$stage_debug"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmod64_vc.lib" "$stage_release"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmodL64.dll" "$stage_debug"
+            cp -dR --preserve=mode,timestamps "api/lowlevel/lib/fmod64.dll" "$stage_release"
         ;;
         "darwin")
             cp "api/lowlevel/lib/libfmodL.dylib" "$stage_debug"
@@ -123,8 +141,8 @@ pushd "$FMOD_SOURCE_DIR"
     esac
 
     # Copy the headers
-    cp -a api/lowlevel/inc/*.h "$stage/include/fmodstudio"
-    cp -a api/lowlevel/inc/*.hpp "$stage/include/fmodstudio"
+    cp -dR --preserve=mode,timestamps api/lowlevel/inc/*.h "$stage/include/fmodstudio"
+    cp -dR --preserve=mode,timestamps api/lowlevel/inc/*.hpp "$stage/include/fmodstudio"
 
     # Copy License (extracted from the readme)
     cp "doc/LICENSE.TXT" "$stage/LICENSES/fmodstudio.txt"

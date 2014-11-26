@@ -126,17 +126,13 @@ pushd "$FMOD_SOURCE_DIR"
         ;;
         "linux")
             # Copy the relevant stuff around
-            cp -a api/lib/libfmodexL-*.so "$stage_debug"
-            cp -a api/lib/libfmodex-*.so "$stage_release"
-            cp -a api/lib/libfmodexL.so "$stage_debug"
-            cp -a api/lib/libfmodex.so "$stage_release"
-        ;;
+            cp -a api/lowlevel/lib/x86/libfmodL.so* "$stage_debug"
+            cp -a api/lowlevel/lib/x86/libfmod.so* "$stage_release"
+         ;;
         "linux64")
             # Copy the relevant stuff around
-            cp -a api/lib/libfmodexL64-*.so "$stage_debug"
-            cp -a api/lib/libfmodex64-*.so "$stage_release"
-            cp -a api/lib/libfmodexL64.so "$stage_debug"
-            cp -a api/lib/libfmodex64.so "$stage_release"
+            cp -a api/lowlevel/lib/x86_64/libfmodL.so* "$stage_debug"
+            cp -a api/lowlevel/lib/x86_64/libfmod.so* "$stage_release"
         ;;
     esac
 

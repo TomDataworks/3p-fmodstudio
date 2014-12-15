@@ -100,8 +100,8 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*so</string>
-            <string>lib/release/*.so</string>
+            <string>lib/debug/*.so*</string>
+            <string>lib/release/*.so*</string>
           </array>
           <key>name</key>
           <string>linux64</string>
@@ -152,9 +152,9 @@
         </map>
       </map>
       <key>source_directory</key>
-      <string>fmodstudioapi10507</string>
+      <string>fmodstudioapi10509</string>
       <key>version</key>
-      <string>1.05.07</string>
+      <string>1.05.09</string>
     </map>
     <key>type</key>
     <string>autobuild</string>

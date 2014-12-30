@@ -1,5 +1,9 @@
 #!/bin/bash
 
+FMOD_ROOT_NAME="fmodstudioapi"
+FMOD_VERSION="10509"
+FMOD_VERSION_PRETTY="1.05.09"
+
 cd "$(dirname "$0")"
 
 # turn on verbose debugging output for parabuild logs.
@@ -23,8 +27,6 @@ set -x
 
 # Form the official fmod archive URL to fetch
 # Note: fmod is provided in 3 flavors (one per platform) of precompiled binaries. We do not have access to source code.
-FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10509"
 case "$AUTOBUILD_PLATFORM" in
     windows*)
     FMOD_SERV_DIR="Win"
@@ -51,8 +53,6 @@ FMOD_URL="http://www.fmod.org/download/fmodstudio/api/$FMOD_SERV_DIR/$FMOD_ARCHI
 
 # Fetch and extract the official fmod files
 fetch_archive "$FMOD_URL" "$FMOD_ARCHIVE" "$FMOD_MD5"
-# Workaround as extract does not handle .zip files (yet)
-# TODO: move that logic to the appropriate autobuild script
 case "$FMOD_ARCHIVE" in
     *.exe)
         # We can't run the NSIS installer as admin in TC
@@ -99,6 +99,8 @@ mkdir -p "$stage/include/fmodstudio"
 #Create the staging debug and release folders
 mkdir -p "$stage_debug"
 mkdir -p "$stage_release"
+
+echo "${FMOD_VERSION_PRETTY}" > "${stage}/VERSION.txt"
 
 pushd "$FMOD_SOURCE_DIR"
     case "$AUTOBUILD_PLATFORM" in

@@ -6,7 +6,7 @@
       <key>copyright</key>
       <string>FMOD Studio, copyright © Firelight Technologies Pty, Ltd., 1994-2014.</string>
       <key>description</key>
-      <string>FMOD Studio audio processing library</string>
+      <string>FMOD Studio audio system library</string>
       <key>license</key>
       <string>fmodstudio</string>
       <key>license_file</key>

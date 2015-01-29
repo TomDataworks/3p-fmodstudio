@@ -120,10 +120,10 @@ pushd "$FMOD_SOURCE_DIR"
             cp "api/lowlevel/lib/libfmodL.dylib" "$stage_debug"
             cp "api/lowlevel/lib/libfmod.dylib" "$stage_release"
             pushd "$stage_debug"
-              fix_dylib_id libfmodexL.dylib
+              fix_dylib_id libfmodL.dylib
             popd
             pushd "$stage_release"
-              fix_dylib_id libfmodex.dylib
+              fix_dylib_id libfmod.dylib
             popd
         ;;
         "linux")

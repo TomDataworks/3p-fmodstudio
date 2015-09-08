@@ -1,8 +1,8 @@
 #!/bin/bash
 
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10607"
-FMOD_VERSION_PRETTY="1.06.07"
+FMOD_VERSION="10609"
+FMOD_VERSION_PRETTY="1.06.09"
 
 cd "$(dirname "$0")"
 
@@ -32,19 +32,19 @@ case "$AUTOBUILD_PLATFORM" in
     FMOD_SERV_DIR="Win"
     FMOD_PLATFORM="win-installer"
     FMOD_FILEEXTENSION=".exe"
-    FMOD_MD5="90ee846a00fbf37a117bfc25618d44ef"
+    FMOD_MD5="4b918237706986cc18291f899ea6e8ee"
     ;;
     "darwin")
     FMOD_SERV_DIR="Mac"
     FMOD_PLATFORM="mac-installer"
     FMOD_FILEEXTENSION=".dmg"
-    FMOD_MD5="2e897ddd2622a5f06089942c5f3c6b77"
+    FMOD_MD5="cd12b459e5b7dc42ea356a4552e5f483"
     ;;
     linux*)
     FMOD_SERV_DIR="Linux"
     FMOD_PLATFORM="linux"
     FMOD_FILEEXTENSION=".tar.gz"
-    FMOD_MD5="142c2c3d41b61afccdcc91eb686278d1"
+    FMOD_MD5="b3d717a0f2873bac7b1f36511ac7597d"
     ;;
 esac
 FMOD_SOURCE_DIR="$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"

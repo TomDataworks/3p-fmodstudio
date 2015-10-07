@@ -1,8 +1,8 @@
 #!/bin/bash
 
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10609"
-FMOD_VERSION_PRETTY="1.06.09"
+FMOD_VERSION="10700"
+FMOD_VERSION_PRETTY="1.07.00"
 
 cd "$(dirname "$0")"
 
@@ -29,30 +29,21 @@ set -x
 # Note: fmod is provided in 3 flavors (one per platform) of precompiled binaries. We do not have access to source code.
 case "$AUTOBUILD_PLATFORM" in
     windows*)
-    FMOD_SERV_DIR="Win"
     FMOD_PLATFORM="win-installer"
     FMOD_FILEEXTENSION=".exe"
-    FMOD_MD5="4b918237706986cc18291f899ea6e8ee"
     ;;
     "darwin")
-    FMOD_SERV_DIR="Mac"
     FMOD_PLATFORM="mac-installer"
     FMOD_FILEEXTENSION=".dmg"
-    FMOD_MD5="cd12b459e5b7dc42ea356a4552e5f483"
     ;;
     linux*)
-    FMOD_SERV_DIR="Linux"
     FMOD_PLATFORM="linux"
     FMOD_FILEEXTENSION=".tar.gz"
-    FMOD_MD5="b3d717a0f2873bac7b1f36511ac7597d"
     ;;
 esac
 FMOD_SOURCE_DIR="$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"
 FMOD_ARCHIVE="$FMOD_SOURCE_DIR$FMOD_FILEEXTENSION"
-FMOD_URL="http://www.fmod.org/download/fmodstudio/api/$FMOD_SERV_DIR/$FMOD_ARCHIVE"
 
-# Fetch and extract the official fmod files
-fetch_archive "$FMOD_URL" "$FMOD_ARCHIVE" "$FMOD_MD5"
 case "$FMOD_ARCHIVE" in
     *.exe)
         # We can't run the NSIS installer as admin in TC

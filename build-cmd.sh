@@ -1,8 +1,8 @@
 #!/bin/bash
 
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10800"
-FMOD_VERSION_PRETTY="1.08.00"
+FMOD_VERSION="10801"
+FMOD_VERSION_PRETTY="1.08.01"
 
 cd "$(dirname "$0")"
 

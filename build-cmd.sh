@@ -51,6 +51,7 @@ case "$FMOD_ARCHIVE" in
         # into the repo instead.
         #
         bash_install_dir="$(pwd)/$FMOD_ROOT_NAME$FMOD_VERSION$FMOD_PLATFORM"
+        mkdir -p $bash_install_dir
         win_install_dir=`cygpath -w "$bash_install_dir"`
         #
         # This will invoke the UAC dialog to confirm permission before

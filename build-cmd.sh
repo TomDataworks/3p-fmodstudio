@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FMOD_ROOT_NAME="fmodstudioapi"
-FMOD_VERSION="10815"
+FMOD_VERSION="10811"
 FMOD_VERSION_PRETTY="1.08.11"
 
 cd "$(dirname "$0")"
@@ -68,6 +68,12 @@ case "$FMOD_ARCHIVE" in
         fi
     ;;
     *.tar.gz)
+        if [ ! -f "$FMOD_ARCHIVE" ]; then
+          echo "Archive not found... checking third party path..."
+          if [ -f "$THIRDPARTY_PATH/${FMOD_ARCHIVE}" ]; then
+            cp "${THIRDPARTY_PATH}/${FMOD_ARCHIVE}" "${FMOD_ARCHIVE}"
+          fi
+        fi
         extract "$FMOD_ARCHIVE"
     ;;
     *.dmg)
